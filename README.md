@@ -1,6 +1,9 @@
 # img2ascii
 Convert images and GIFs to ascii characters.
 
+**A GIF of a Tyrannosaurus:**\
+![demo](https://github.com/user-attachments/assets/65a44fe7-c582-4fc0-a622-fddd5bfd4195)
+
 ## Prerequisites
 - c++20
 - giflib
