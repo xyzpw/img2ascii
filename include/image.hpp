@@ -10,6 +10,7 @@ struct ImageConfig {
     std::string asciiChars = asciiCharset;
     int charsetDensity = 0;
     float scale = 1.0f;
+    bool autoscale = false;
     float minBrightness = 0.0f;
     float gifTime = 0.0f;
     bool trimBackground = false;

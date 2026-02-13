@@ -6,6 +6,7 @@
 enum class Command {
     AntiAlias,
     AspectRatio,
+    Autoscale,
     Charset,
     CharsetDensity,
     Chroma,
@@ -167,6 +168,15 @@ inline const std::map<Command, CommandInfo> commandRegistry {
             .expectsValue = false,
         },
     },
+    {
+        Command::Autoscale,
+        CommandInfo {
+            .name = "autoscale",
+            .usage = "",
+            .description = "scale output size to fit console",
+            .expectsValue = false,
+        },
+    }
 };
 
 void showHelp();

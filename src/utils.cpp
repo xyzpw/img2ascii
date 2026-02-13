@@ -7,6 +7,8 @@
 #include <vector>
 #include <chrono>
 #include <thread>
+#include <utility>
+#include <sys/ioctl.h>
 #include "utils.hpp"
 
 using std::string;
@@ -237,5 +239,16 @@ namespace Utils
         std::getline(std::cin, input);
 
         return input;
+    }
+
+    std::pair<int, int> getConsoleSize()
+    {
+        struct winsize w;
+
+        if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0) {
+            return std::make_pair(w.ws_col, w.ws_row);
+        }
+
+        return std::make_pair(0, 0);
     }
 }

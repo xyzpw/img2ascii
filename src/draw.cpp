@@ -22,6 +22,17 @@ void drawImage(const Image& img)
     float scaleX = gImageConfig.scale;
     float scaleY = gImageConfig.scale * gImageConfig.aspectRatio;
 
+    /* fit image to console screen if it is too large */
+    if (gImageConfig.autoscale) {
+        auto consoleSize = Utils::getConsoleSize();
+
+        float maxScaleX = divide(consoleSize.first, img.pxWidth);
+        float maxScaleY = divide(consoleSize.second, img.pxHeight);
+
+        scaleX = std::min(maxScaleX, maxScaleY);
+        scaleY = scaleX * gImageConfig.aspectRatio;
+    }
+
     int imgWidth = static_cast<int>(img.pxWidth * scaleX);
     int imgHeight = static_cast<int>(img.pxHeight * scaleY);
 

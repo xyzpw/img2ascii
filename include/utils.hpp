@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <utility>
 
 namespace Utils
 {
@@ -24,4 +25,5 @@ namespace Utils
     float steadyTime();
     void sleepForMs(int ms);
     std::string promptInput(std::string text);
+    std::pair<int, int> getConsoleSize();
 }

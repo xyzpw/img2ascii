@@ -10,6 +10,7 @@ ImageConfig makeImageConfig(const Args& args)
     ImageConfig config;
 
     config.scale = args.getValueAsFloat(Command::Scale, 1.0f);
+    config.autoscale = args.hasCommand(Command::Autoscale);
     config.asciiChars = args.getValue(Command::Charset, asciiCharset);
     config.charsetDensity = args.getValueAsInt(Command::CharsetDensity, 0);
     config.minBrightness = args.getValueAsFloat(Command::MinBrightness, 0.0f);
