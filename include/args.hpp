@@ -3,6 +3,9 @@
 #include <string>
 #include <map>
 
+// help menu spacing size for command descriptions
+constexpr int DESC_COL = 32;
+
 enum class Command {
     AntiAlias,
     AspectRatio,

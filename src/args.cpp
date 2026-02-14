@@ -45,7 +45,13 @@ void showHelp()
             info.usage
         );
 
-        stream << std::setw(32) << noDesc << info.description << '\n';
+        stream << std::setw(DESC_COL) << noDesc;
+
+        if (noDesc.length() >= DESC_COL) {
+            stream << '\n' << string(DESC_COL, ' ');
+        }
+
+        stream << info.description << '\n';
     }
 
     std::cout << stream.str();
