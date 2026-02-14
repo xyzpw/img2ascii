@@ -89,6 +89,13 @@ Args::Args(int argc, char* argv[])
 
         const CommandInfo& cmdInfo = commandRegistry.at(cmd);
 
+        /* set next arg as value if there is currently no value for the arg
+         * and it expects a value */
+        if (cmdInfo.expectsValue && cmdValue.empty() && i + 1 <= argc) {
+            cmdValue = string(argv[i + 1]);
+            ++i;
+        }
+
         if (cmdInfo.expectsValue) {
             string cmdValueUnquoted = Utils::unquotedText(cmdValue);
             string value;
