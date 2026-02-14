@@ -176,7 +176,7 @@ inline const std::map<Command, CommandInfo> commandRegistry {
             .description = "scale output size to fit console",
             .expectsValue = false,
         },
-    }
+    },
 };
 
 void showHelp();
