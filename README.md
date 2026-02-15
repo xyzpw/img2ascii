@@ -1,6 +1,8 @@
 # img2ascii
 Convert images and GIFs to ascii characters.
 
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/xyzpw/img2ascii/total?style=for-the-badge&color=blue)
+
 **A GIF of a Tyrannosaurus:**\
 ![demo](https://github.com/user-attachments/assets/65a44fe7-c582-4fc0-a622-fddd5bfd4195)
 
@@ -30,6 +32,11 @@ or
 Converting an image to ascii:
 ```bash
 ./img2ascii image.png
+```
+
+To convert ascii to image:
+```bash
+./img2ascii --ascii-to-image file.txt output.png
 ```
 
 ### URLs
@@ -62,6 +69,11 @@ Alternatively, color names can be used, e.g. `--chroma=green`:
 Large images can fill the entire terminal; the `scale` command can be used to prevent this:
 ```bash
 ./img2ascii image.png --scale=0.1
+```
+
+The `autoscale` option can also be used to fit inside the terminal:
+```bash
+./img2ascii image.png --autoscale
 ```
 
 ### Colorizing Characters
