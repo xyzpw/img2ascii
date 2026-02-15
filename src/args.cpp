@@ -118,6 +118,26 @@ Args::Args(int argc, char* argv[])
                 case Command::ChromaThreshold:
                     value = to_string(Utils::toFloat(cmdValueUnquoted));
                     break;
+                case Command::AsciiToImage:
+                    {
+                        string nextValUnquoted;
+
+                        if (i + 1 <= argc) {
+                            nextValUnquoted = Utils::unquotedText(argv[i + 1]);
+                        }
+                        else {
+                            Utils::exitWithError("no output file specified");
+                        }
+
+                        if (! nextValUnquoted.ends_with(".png")) {
+                            Utils::exitWithError("output file must be png");
+                        }
+
+                        value = cmdValueUnquoted + " " + nextValUnquoted;
+
+                        ++i;
+                    }
+                    break;
                 default:
                     value = cmdValueUnquoted;
                     break;

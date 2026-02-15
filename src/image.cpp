@@ -1,9 +1,13 @@
 #include <format>
+#include <cstddef>
 #include "image.hpp"
 #include "ansi.hpp"
 #include "utils.hpp"
+#include "input_handler.hpp"
 #define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "../external/stb_image.h"
+#include "../external/stb_image_write.h"
 
 using std::string;
 using Utils::divide;
@@ -166,4 +170,88 @@ bool Image::isChromaMatch(const Image::Pixel& px) const
     float match = 1.0f - divide(distSqr, 255*255);
 
     return match >= gImageConfig.chromaThreshold;
+}
+
+float asciiToBrightness(char c)
+{
+    auto index = gImageConfig.asciiChars.find(c);
+
+    if (index == string::npos) {
+        return 0.0f;
+    }
+
+    return divide((float)index, (float)gImageConfig.asciiChars.length());
+}
+
+/*
+ * Reads text file and saves it as an image named as the specified output.
+ *
+ * @return success
+*/
+bool createImageFromAscii(const string &txtFile, const string &output)
+{
+    if (!Utils::fileExists(txtFile) || !InputHandler::isTxtFile(txtFile)) {
+        Utils::exitWithError("txt file does not exist");
+    }
+
+    /* prompt for confirmation to continue if the output file already exists */
+    if (Utils::fileExists(output)) {
+        bool perm = Utils::promptYesOrNo("output file already exists, continue with save? ", false);
+
+        if (!perm)
+            return false;
+    }
+
+    auto fileLines = Utils::readFileLines(txtFile);
+
+    size_t width = 0;
+    size_t height = fileLines.size();
+    int channels = 4;
+
+    // find longest line
+    for (const auto& line : fileLines) {
+        if (line.length() > width) {
+            width = line.length();
+        }
+    }
+
+    std::vector<unsigned char> image(width * height * channels);
+
+    for (size_t y = 0; y < height; ++y) {
+        for (size_t x = 0; x < width; ++x) {
+            int index = (y * width + x) * channels;
+
+            char c = ' ';
+            if (x < fileLines[y].length()) {
+                c = fileLines[y][x];
+            }
+
+            float brightness = std::clamp(asciiToBrightness(c), 0.0f, 1.0f);
+            unsigned char bData = static_cast<unsigned char>(brightness * 255.0f);
+
+            image[index + 0] = bData;
+            image[index + 1] = bData;
+            image[index + 2] = bData;
+            image[index + 3] = (c == ' ') ? 0 : 255;
+        }
+    }
+
+    string promptMessage = std::format("write to file '{}'? ", output.c_str());
+    bool perm = Utils::promptYesOrNo(promptMessage, false);
+
+    // exit if user does not give permission
+    if (!perm) {
+        return false;
+    }
+
+    stbi_write_png(
+        output.c_str(),
+        width,
+        height,
+        channels,
+        image.data(),
+        width * channels
+    );
+
+    return true;
 }

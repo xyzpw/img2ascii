@@ -1,6 +1,7 @@
 #include "input_handler.hpp"
 #include "common.hpp"
 #include "utils.hpp"
+#include "image.hpp"
 #include <string>
 #include <regex>
 #include <iostream>
@@ -37,6 +38,24 @@ namespace InputHandler
         }
 
         return false;
+    }
+
+    bool isTxtFile(string name)
+    {
+        return name.ends_with(".txt");
+    }
+
+    /*
+     * Handles the ascii-to-image argument.
+     *
+     * @param argValue The entire value of the arg, e.g. in.txt out.png
+    */
+    void handleAsciiToImage(const string &argValue)
+    {
+        auto files = Utils::splitString(argValue, ' ');
+
+        bool saved = createImageFromAscii(files.at(0), files.at(1));
+        std::cout << (saved ? "image saved" : "failed to save image") << std::endl;
     }
 
     void validateFileName(string& filename)

@@ -17,8 +17,14 @@ int main(int argc, char* argv[])
         showHelp();
         return 0;
     }
-    else if (!args.hasFile()) {
+    else if (!args.hasFile() && !args.hasCommand(Command::AsciiToImage)) {
         Utils::exitWithError("no file");
+    }
+
+    /* handle ascii to image usage */
+    if (args.hasCommand(Command::AsciiToImage)) {
+        InputHandler::handleAsciiToImage(args.getValue(Command::AsciiToImage));
+        return 0;
     }
 
     InputHandler::validateFileName(args.commands[Command::File]);

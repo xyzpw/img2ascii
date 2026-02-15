@@ -8,6 +8,7 @@ constexpr int DESC_COL = 32;
 
 enum class Command {
     AntiAlias,
+    AsciiToImage,
     AspectRatio,
     Autoscale,
     Charset,
@@ -178,6 +179,15 @@ inline const std::map<Command, CommandInfo> commandRegistry {
             .usage = "",
             .description = "scale output size to fit console",
             .expectsValue = false,
+        },
+    },
+    {
+        Command::AsciiToImage,
+        CommandInfo {
+            .name = "ascii-to-image",
+            .usage = "<file.txt> <output.png>",
+            .description = "convert ascii art to an image from an existing txt file",
+            .expectsValue = true,
         },
     },
 };

@@ -64,3 +64,5 @@ struct Image {
     int chromaConfigDistanceSqrd(const Pixel& px) const;
     bool isChromaMatch(const Pixel& px) const;
 };
+
+bool createImageFromAscii(const std::string& txtFilename, const std::string &outputFilename);

@@ -18,6 +18,7 @@ namespace Utils
     int toInt(std::string text, int fallback = 0);
     float toFloat(std::string text, float fallback = 0);
     bool fileExists(std::string path);
+    std::vector<std::string> readFileLines(std::string filename);
     bool wget(std::string url, std::string output);
     void printError(std::string text);
     void exitWithError(std::string text);
@@ -26,4 +27,5 @@ namespace Utils
     void sleepForMs(int ms);
     std::string promptInput(std::string text);
     std::pair<int, int> getConsoleSize();
+    bool promptYesOrNo(std::string message, bool yesByDefault);
 }

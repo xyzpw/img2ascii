@@ -8,6 +8,7 @@
 #include <chrono>
 #include <thread>
 #include <utility>
+#include <fstream>
 #include <sys/ioctl.h>
 #include "utils.hpp"
 
@@ -180,6 +181,25 @@ namespace Utils
         return std::filesystem::exists(path);
     }
 
+    std::vector<string> readFileLines(string filename)
+    {
+        std::vector<string> result;
+        std::fstream file(filename);
+
+        if (!file.is_open()) {
+            Utils::exitWithError("cannot open file");
+        }
+
+        string line;
+        while (std::getline(file, line)) {
+            result.push_back(line);
+        }
+
+        file.close();
+
+        return result;
+    }
+
     /*
      * Runs `wget` shell command (asks for confirmation before running!).
      *
@@ -250,5 +270,13 @@ namespace Utils
         }
 
         return std::make_pair(0, 0);
+    }
+
+    bool promptYesOrNo(string message, bool yesByDefault)
+    {
+        message += yesByDefault ? "[Y/n] " : "[y/N] ";
+        string result = promptInput(message);
+
+        return result == "Y" || result == "y";
     }
 }
