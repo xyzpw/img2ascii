@@ -1,7 +1,9 @@
 #include "input_handler.hpp"
 #include "common.hpp"
+#include "utils.hpp"
 #include <string>
 #include <regex>
+#include <iostream>
 
 using std::string;
 
@@ -35,5 +37,28 @@ namespace InputHandler
         }
 
         return false;
+    }
+
+    void validateFileName(string& filename)
+    {
+        if (isUrl(filename)) {
+            string name = filenameFromUrl(filename);
+
+            if (!isImage(name)) {
+                Utils::exitWithError("URL is not valid file type");
+            }
+
+            bool downloaded = Utils::wget(filename, name);
+
+            if (!downloaded) {
+                Utils::exitWithError("aborted");
+            }
+
+            filename = name;
+        }
+
+        if (!isImage(filename)) {
+            Utils::exitWithError("file type is not an image");
+        }
     }
 }
