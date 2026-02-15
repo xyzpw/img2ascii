@@ -21,27 +21,8 @@ int main(int argc, char* argv[])
         Utils::exitWithError("no file");
     }
 
-    std::string filename = args.commands[Command::File];
-    bool isUrl = InputHandler::isUrl(filename);
-
-    /* download URL and fix the arg command value to the downloaded file */
-    if (isUrl) {
-        std::string name = InputHandler::filenameFromUrl(filename);
-
-        // exit with error if the name is not an image type
-        if (!InputHandler::isImage(name)) {
-            Utils::exitWithError("URL is not a valid file type");
-        }
-
-        /* try to download file; exit with error if failed */
-        if (Utils::wget(filename, name)) {
-            args.commands[Command::File] = name;
-            filename = name;
-        }
-        else {
-            Utils::exitWithError("cancelled");
-        }
-    }
+    InputHandler::validateFileName(args.commands[Command::File]);
+    std::string filename = args.getValue(Command::File);
 
     /* display with a different method if a GIF is specified */
     if (boost::iends_with(filename, ".gif")) {
