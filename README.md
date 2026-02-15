@@ -112,3 +112,6 @@ The speed of a GIF can be changed via the `gif-speed` arg:
 - png
 - jpg
 - gif
+
+## Credits
+- stb_image [https://github.com/nothings/stb/]
