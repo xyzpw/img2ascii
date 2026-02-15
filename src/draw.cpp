@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <csignal>
+#include <unistd.h>
 #include "draw.hpp"
 #include "image.hpp"
 #include "gif.hpp"
@@ -24,10 +25,15 @@ void drawImage(const Image& img)
 
     /* fit image to console screen if it is too large */
     if (gImageConfig.autoscale) {
-        auto consoleSize = Utils::getConsoleSize();
+        int col = 80, rows = 24;
+        if (isatty(STDOUT_FILENO)) {
+            auto [c, r] = Utils::getConsoleSize();
+            col = c;
+            rows = r;
+        }
 
-        float maxScaleX = divide(consoleSize.first, img.pxWidth);
-        float maxScaleY = divide(consoleSize.second, img.pxHeight);
+        float maxScaleX = divide(col, img.pxWidth);
+        float maxScaleY = divide(rows, img.pxHeight);
 
         scaleX = std::min(maxScaleX, maxScaleY);
         scaleY = scaleX * gImageConfig.aspectRatio;
