@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
         return 0;
     }
     else if (!args.hasFile() && !args.hasCommand(Command::AsciiToImage)) {
-        Utils::exitWithError("no file");
+        Utils::exitWithError("no file specified");
     }
 
     /* handle ascii to image usage */
