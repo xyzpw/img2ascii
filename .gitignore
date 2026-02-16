@@ -4,3 +4,6 @@ img2ascii
 *.jpeg
 *.gif
 *.txt
+
+# keep necessary files
+!compile_flags.txt
