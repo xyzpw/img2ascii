@@ -20,12 +20,15 @@ struct ImageConfig {
     float gifSpeed = 0.0f;
     float aspectRatio = 0.5f;
     bool antialias = false;
+    std::string saveTextFilename;
 
     std::string chroma = "";
     float chromaThreshold = 0.0f;
     int chromaRed = 0;
     int chromaGreen = 0;
     int chromaBlue = 0;
+
+    bool shouldSaveAscii() { return !saveTextFilename.empty(); }
 };
 
 inline ImageConfig gImageConfig;

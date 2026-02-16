@@ -200,6 +200,29 @@ namespace Utils
         return result;
     }
 
+    void writeFile(const string &filename, const string &text, bool warnOverwrite)
+    {
+        /* ask permission if the file already exists */
+        if (warnOverwrite && fileExists(filename)) {
+            bool perm = promptYesOrNo(std::format("{} already exists, overwrite?", filename), false);
+
+            if (!perm) {
+                std::cerr << "aborting file save\n";
+                return;
+            }
+        }
+
+        std::ofstream file(filename);
+
+        if (!file.is_open()) {
+            Utils::exitWithError("cannot open file");
+        }
+
+        file << text;
+
+        file.close();
+    }
+
     /*
      * Runs `wget` shell command (asks for confirmation before running!).
      *

@@ -75,6 +75,12 @@ void drawImage(const Image& img)
         Utils::unindent(ascii);
     }
 
+    /* save as text file and return */
+    if (gImageConfig.shouldSaveAscii()) {
+        Utils::writeFile(gImageConfig.saveTextFilename, ascii);
+        return;
+    }
+
     std::cout << ascii << std::flush;
 }
 
@@ -83,6 +89,10 @@ void drawImage(const Image& img)
 */
 void drawGif(Gif& gif)
 {
+    if (gImageConfig.shouldSaveAscii()) {
+        Utils::exitWithError("saving text file is not allowed for GIFs");
+    }
+
     const float& gifTime = gImageConfig.gifTime;
     const int& gifCycles = gImageConfig.gifCycles;
     const bool& loop = gImageConfig.loopGif;

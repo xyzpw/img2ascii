@@ -24,6 +24,7 @@ ImageConfig makeImageConfig(const Args& args)
     config.gifSpeed = args.getValueAsFloat(Command::GifSpeed, 0.0f);
     config.aspectRatio = args.getValueAsFloat(Command::AspectRatio, 0.5f);
     config.antialias = args.hasCommand(Command::AntiAlias);
+    config.saveTextFilename = args.getValue(Command::Save, "");
 
     if (config.scale <= 0.0f) {
         config.scale = 1.0f;

@@ -19,6 +19,7 @@ namespace Utils
     float toFloat(std::string text, float fallback = 0);
     bool fileExists(std::string path);
     std::vector<std::string> readFileLines(std::string filename);
+    void writeFile(const std::string& filename, const std::string& text, bool warnOverwrite = true);
     bool wget(std::string url, std::string output);
     void printError(std::string text);
     void exitWithError(std::string text);

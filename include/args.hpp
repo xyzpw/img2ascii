@@ -23,6 +23,7 @@ enum class Command {
     Help,
     LoopGif,
     MinBrightness,
+    Save,
     Scale,
     TrimBackground,
 };
@@ -187,6 +188,15 @@ inline const std::map<Command, CommandInfo> commandRegistry {
             .name = "ascii-to-image",
             .usage = "<file.txt> <output.png>",
             .description = "convert ascii art to an image from an existing txt file",
+            .expectsValue = true,
+        },
+    },
+    {
+        Command::Save,
+        CommandInfo {
+            .name = "save",
+            .usage = "<filename.txt>",
+            .description = "save ascii result to file",
             .expectsValue = true,
         },
     },
