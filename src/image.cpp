@@ -196,7 +196,7 @@ bool createImageFromAscii(const string &txtFile, const string &output)
 
     /* prompt for confirmation to continue if the output file already exists */
     if (Utils::fileExists(output)) {
-        bool perm = Utils::promptYesOrNo("output file already exists, continue with save? ", false);
+        bool perm = Utils::promptYesOrNo("output file already exists, continue with save?", false);
 
         if (!perm)
             return false;
@@ -236,7 +236,7 @@ bool createImageFromAscii(const string &txtFile, const string &output)
         }
     }
 
-    string promptMessage = std::format("write to file '{}'? ", output.c_str());
+    string promptMessage = std::format("write to file '{}'?", output.c_str());
     bool perm = Utils::promptYesOrNo(promptMessage, false);
 
     // exit if user does not give permission

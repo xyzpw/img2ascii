@@ -274,7 +274,7 @@ namespace Utils
 
     bool promptYesOrNo(string message, bool yesByDefault)
     {
-        message += yesByDefault ? "[Y/n] " : "[y/N] ";
+        message += yesByDefault ? " [Y/n] " : " [y/N] ";
         string result = promptInput(message);
 
         return result == "Y" || result == "y";
