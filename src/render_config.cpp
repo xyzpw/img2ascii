@@ -25,6 +25,7 @@ ImageConfig makeImageConfig(const Args& args)
     config.aspectRatio = args.getValueAsFloat(Command::AspectRatio, 0.5f);
     config.antialias = args.hasCommand(Command::AntiAlias);
     config.saveTextFilename = args.getValue(Command::Save, "");
+    config.displayAsCustomColor = args.hasCommand(Command::Color);
 
     if (config.scale <= 0.0f) {
         config.scale = 1.0f;
@@ -53,6 +54,15 @@ ImageConfig makeImageConfig(const Args& args)
         config.chromaRed = split[0];
         config.chromaGreen = split[1];
         config.chromaBlue = split[2];
+    }
+
+    if (config.displayAsCustomColor) {
+        auto split = Utils::splitStringToInt(args.getValue(Command::Color), ',');
+
+        if (split.size() != 3)
+            Utils::exitWithError("invalid color value");
+
+        config.customDisplayColor = Color(split[0], split[1], split[2]);
     }
 
     return config;

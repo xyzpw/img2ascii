@@ -2,6 +2,8 @@
 
 #include <string>
 
+struct Color;
+
 namespace Ansi
 {
     constexpr std::string ESC = "\x1b";
@@ -15,4 +17,5 @@ namespace Ansi
     void moveCursorHome();
     void setCursorVisible(bool value);
     std::string colorize(const std::string& text, int r, int g, int b);
+    std::string colorize(const std::string &text, const Color &color);
 }

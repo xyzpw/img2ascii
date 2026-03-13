@@ -6,6 +6,13 @@
 
 const std::string asciiCharset = "@%#*+=-:. ";
 
+struct Color {
+    int r, g, b;
+
+    Color() {}
+    Color(int r, int g, int b) : r(r), g(g), b(b) {}
+};
+
 struct ImageConfig {
     std::string asciiChars = asciiCharset;
     int charsetDensity = 0;
@@ -27,6 +34,9 @@ struct ImageConfig {
     int chromaRed = 0;
     int chromaGreen = 0;
     int chromaBlue = 0;
+
+    bool displayAsCustomColor = false;
+    Color customDisplayColor;
 
     bool shouldSaveAscii() { return !saveTextFilename.empty(); }
 };

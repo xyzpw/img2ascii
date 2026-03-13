@@ -57,8 +57,13 @@ void drawImage(const Image& img)
                      ? img.nearbyAverageToAscii(pxCol, pxRow)
                      : img.toAscii(px);
 
-            if (!gImageConfig.colored) {
+            if (!gImageConfig.colored && !gImageConfig.displayAsCustomColor) {
                 ascii += c;
+            }
+            else if (gImageConfig.displayAsCustomColor) {
+                ascii += (c == ' ')
+                    ? " "
+                    : Ansi::colorize(string(1, c), gImageConfig.customDisplayColor);
             }
             else {
                 ascii += (c == ' ')

@@ -1,4 +1,5 @@
 #include "ansi.hpp"
+#include "image.hpp"
 #include <string>
 #include <iostream>
 #include <format>
@@ -27,5 +28,10 @@ namespace Ansi
     {
         string result = std::format("\x1b[38;2;{};{};{}m{}\x1b[0m", r, g, b, text);
         return result;
+    }
+
+    string colorize(const string &text, const Color &color)
+    {
+        return colorize(text, color.r, color.g, color.b);
     }
 }

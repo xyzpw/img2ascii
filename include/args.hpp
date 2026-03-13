@@ -15,6 +15,7 @@ enum class Command {
     CharsetDensity,
     Chroma,
     ChromaThreshold,
+    Color,
     Colored,
     File,
     GifCycles,
@@ -197,6 +198,15 @@ inline const std::map<Command, CommandInfo> commandRegistry {
             .name = "save",
             .usage = "<filename.txt>",
             .description = "save ascii result to file",
+            .expectsValue = true,
+        },
+    },
+    {
+        Command::Color,
+        CommandInfo {
+            .name = "color",
+            .usage = "<r,g,b|color>",
+            .description = "display results as a color",
             .expectsValue = true,
         },
     },
