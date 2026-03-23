@@ -5,6 +5,7 @@
 #include <string>
 #include <regex>
 #include <iostream>
+#include <format>
 
 using std::string;
 
@@ -66,6 +67,15 @@ namespace InputHandler
             if (!isImage(name)) {
                 Utils::exitWithError("URL is not valid file type");
             }
+
+	    string promptText = std::format("file name (default {}): ", name);
+
+	    /* prompt for output file name */
+	    string newName = Utils::promptInput(promptText);
+	    if (isImage(newName))
+		    name = newName;
+	    else
+		    std::cerr << "using default name\n";
 
             bool downloaded = Utils::wget(filename, name);
 
