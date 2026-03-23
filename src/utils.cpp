@@ -231,7 +231,7 @@ namespace Utils
     */
     bool wget(string url, string output)
     {
-        string cmd = std::format("wget -O {} '{}'", output, url);
+        string cmd = std::format("wget -O '{}' '{}'", output, url);
 
         std::string prompt = std::format("run shell command '{}'? [y/N] ", cmd.c_str());
 
